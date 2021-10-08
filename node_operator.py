@@ -28,10 +28,6 @@ class PearlExecOperator(bpy.types.Operator):
         print("nodes number: ",len(current_tree.nodes))
         self.report({"INFO"},"finish execute node trees: "+str(total_time)+'s')
 
-        # 单纯传输数据 2000 节点要6.7s
-        # 601 节点要 1.8s
-        # 10节点要 0.0271s
-
 
        
 

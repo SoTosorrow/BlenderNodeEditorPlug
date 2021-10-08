@@ -72,12 +72,14 @@ class PearlNodeTree(bpy.types.NodeTree):
             if node.is_prepared():
                 self.process_nodes.append(node)
 
+        '''
         # 遍历socket
         for node in self.tree_nodes:
             for input in self.tree_nodes[node].inputs:
                 self.socket_values.setdefault(input.name, input)
             for output in self.tree_nodes[node].outputs:
                 self.socket_values.setdefault(output.name, output)
+        '''
     
 
     def executeNodes(self):
@@ -85,26 +87,20 @@ class PearlNodeTree(bpy.types.NodeTree):
         self.addExecuteNodes()
         self.initTreeValues()
 
+    # TODO 多线程执行process_node列表 
         # 执行队列不空，则一直执行第一个节点
         print("\n-------------- process start")
         while self.process_nodes:
             # 执行节点
             # TODO 节点返回True时才执行transfer以及link_num检查
-            process_start = time.time()
             self.process_nodes[0].process()
-            process_end = time.time()
-            # print("process time:",process_end-process_start)
             
             # 传递数据
-            transfer_start = time.time()
             self.process_nodes[0].transfer()
-            transfer_end = time.time()
-            # print("transfer time:",transfer_end-transfer_start)
-
 
             # TODO process return True/False -> transfer do/not
 
-            # 检查可执行的节点   
+            # 检查可执行的节点  
             for output in self.process_nodes[0].outputs:
                 for link in output.links:
                     self.tree_nodes[link.to_node.name].link_num -= 1

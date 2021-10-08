@@ -63,8 +63,11 @@ class Node_FunctionVector(PearlNode):
         layout.prop(self, 'operate_type', text='')  
 
     def process(self):
-        v1 = self.inputs[0].socket_value
-        v2 = self.inputs[1].socket_value
+        print("process: ",self.name)
+        nodeValueDict = self.tree.tree_values[self.name]
+
+        v1 = nodeValueDict[self.inputs[0].name]
+        v2 = nodeValueDict[self.inputs[1].name]
         result = None
 
         # can not support
@@ -84,7 +87,7 @@ class Node_FunctionVector(PearlNode):
         elif self.operate_type == 'length':
             result = v1.length
 
-        self.outputs[0].socket_value = result
+        nodeValueDict[self.outputs[0].name] = result
 
 
 

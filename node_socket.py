@@ -34,6 +34,8 @@ class NodeSocket_String(PearlNodeSocket):
     socket_color = (0.2, 0.7, 1.0, 1)
     socket_value : bpy.props.StringProperty(default='')
 
+
+
 class NodeSocket_Verts(PearlNodeSocket):
     bl_idname = 'NodeSocket_Verts'
     bl_label = 'NodeSocket_Verts'

@@ -1,6 +1,7 @@
 import bpy
 from .node_system import *
 from .node_socket import *
+import mathutils
 
 '''
     NodeSocket_Int,
@@ -46,7 +47,10 @@ class Node_InputVector(PearlNode):
 
     def process(self):
         print("process: ",self.name)
-        self.outputs[0].socket_value = self.node_value
+        nodeValueDict = self.tree.tree_values[self.name]
+
+        vec3 = mathutils.Vector(self.node_value)
+        nodeValueDict[self.outputs[0].name] = vec3
         return True
 
 

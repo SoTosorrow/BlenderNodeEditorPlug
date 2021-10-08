@@ -21,10 +21,8 @@ node_categories = [
 
     ]),
     PearlNodeCategory("3","Funtions",items=[
-        nodeitems_utils.NodeItem('Node_TransFloat'),
         nodeitems_utils.NodeItem('Node_FunctionFloat'),
-        # nodeitems_utils.NodeItem('Node_TransfromObject'),
-        # nodeitems_utils.NodeItem('Node_FunctionVector'),
+        nodeitems_utils.NodeItem('Node_FunctionVector'),
     ]),
     PearlNodeCategory("4","Convert",items=[
         nodeitems_utils.NodeItem('Node_Float2Vector'),
