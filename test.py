@@ -16,10 +16,23 @@ node-name{
 采用socket name作为key之后，socketvalue似乎没有用了
 addExecuteNodes 中的遍历socket似乎也不需要了
 
-'''
+
+TODO:!!!!!
+注意！bmesh.loops是循环边的引用
+对于顶点来说通过
+bm.verts[10].link_loops[3].link_loop_next.vert
+的方式可以循环它的循环边和点和面
+相邻点和边可以通过link_edges找到
+所以需要设计一个类似bmesh的类来储存这些，或者自己建立一个边表
+但还需要搞明白loop的设计，与edge区别
+
+好像不是循环边，而是围绕某个面的循环？
+是某个面的循环，该顶点连着几个面，就有几个loop
+loop可能是按建立顺序来的
+
+TODO:优化： numpy 代替 list
 
 
-'''
 class NewNode(PearlNode):
     bl_idname = "NewNode"
     bl_label = "NewNode"
@@ -45,3 +58,5 @@ class NewNode(PearlNode):
 
 
 '''
+
+

@@ -1,0 +1,14 @@
+先实现octree节点
+可能还需要输出粒子normal
+再通过泊松重建变为sdf
+然后mc重建网格？这效率不会太低吗
+但是笙笙节点貌似就只输入pos就行了？
+
+
+叶大：
+可以不 voxelize，而是用 metaball，
+选用合适的半径，去表示 implicit surface。
+把点云用 hash table 或 octree 存储，
+以快速找到采样点附近的 metaballs。
+
+https://www.cnblogs.com/shushen/p/5542131.html

@@ -31,18 +31,9 @@ node_categories = [
     ]),
     PearlNodeCategory("5","Mesh",items=[
         nodeitems_utils.NodeItem('Node_InputObject'),
-        nodeitems_utils.NodeItem('Node_TransfromObject'),
         nodeitems_utils.NodeItem('Node_Object2BMesh'),
         nodeitems_utils.NodeItem('Node_MeshAppoint'),
-
-    ]),
-    PearlNodeCategory("6","Modifier",items=[
-        nodeitems_utils.NodeItem('Node_getMesh'),
-        nodeitems_utils.NodeItem('Node_buildObject'),
-        nodeitems_utils.NodeItem('Node_linkObject'),
-        nodeitems_utils.NodeItem('Node_addModifier_Skin'),
-        nodeitems_utils.NodeItem('Node_addModifier_Subsurf'),
-
+        nodeitems_utils.NodeItem('Node_PointRandomMove'),
 
     ]),
 ]

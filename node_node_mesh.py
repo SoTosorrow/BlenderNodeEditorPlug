@@ -1,7 +1,8 @@
 import bpy
 import bmesh
-import gc
+import random
 import time
+import numpy as np
 from .node_system import *
 from .node_socket import *
 
@@ -17,6 +18,38 @@ from .node_socket import *
     NodeSocket_Object,
 
 '''
+
+def bmesh_verts_to_numpy(bm):
+    arr = [x.co for x in bm.verts]
+    if len(arr)==0:
+        return np.zeros((0,3),dtype=np.float32)
+    return np.array(arr,dtype=np.float32)
+
+def bmesh_faces_to_numpy(bm):
+    arr = [[y.index for y in x.verts] for x in bm.faces]
+    if len(arr)==0:
+        return np.zeros((0,3),dtype=np.int32)
+    return np.array(arr,dtype=np.int32)
+
+
+def new_mesh(name, verts=None, edges=None, faces=None):
+    if name in bpy.data.meshes:
+        bpy.data.meshes.remove(bpy.data.meshes[name])
+    mesh = bpy.data.meshes.new(name)
+    verts = verts.tolist() if verts is not None else []
+    edges = edges.tolist() if edges is not None else []
+    faces = faces.tolist() if faces is not None else []
+    mesh.from_pydata(verts, edges, faces)
+    return mesh
+
+def new_object(name, mesh):
+    if name in bpy.data.objects:
+        bpy.data.meshes.remove(bpy.data.objects[name])
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.collection.objects.link(obj)
+    bpy.context.view_layer.objects.active = obj
+    return obj
+
 
 class Node_InputObject(PearlNode):
     bl_idname = "Node_InputObject"
@@ -145,7 +178,7 @@ class Node_MeshAppoint(PearlNode):
         bm.to_mesh(obj.data)
         bm.free()
         bpy.ops.object.select_all()
-        self.outputs[0].socket_value = self.node_value
+        nodeValueDict[self.outputs[0].name] = self.node_value
 
      # 输入点边面数据
     def init(self, context):
@@ -161,12 +194,61 @@ class Node_MeshAppoint(PearlNode):
 
 
 
+class Node_PointRandomMove(PearlNode):
+    bl_idname = "Node_PointRandomMove"
+    bl_label = "PointRandomMove"
+
+    node_value : bpy.props.StringProperty(name='object', default='')
+    
+    def draw_buttons(self,context,layout):
+        col = layout.column(align=1)
+        col.prop_search(self, 'node_value', context.scene, "objects", text='Object', icon = "OBJECT_DATA")
+
+    def process(self):
+        print("process: ",self.name)
+        nodeValueDict = self.tree.tree_values[self.name]
+        bm = bmesh.new()
+
+
+        verts_list = nodeValueDict[self.inputs[0].name]
+        for v in range(len(verts_list)):
+            vertex = bm.verts.new()
+            vertex.co = [i for i in verts_list[v]]
+            vertex.index = v
+        bm.verts.ensure_lookup_table()
+
+        for v in bm.verts:
+            v.co.x = random.random()*2
+            v.co.y = random.random()*2
+            v.co.z = random.random()*2
+    
+        # 采用bmesh方法不会自动刷新物体显示，使用select_all()来刷新一下
+        obj = bpy.data.objects[self.node_value]
+        bm.to_mesh(obj.data)
+        bm.free()
+        # 找到更好的刷新方法
+        bpy.ops.object.select_all(action='SELECT')
+        bpy.ops.object.select_all(action='DESELECT')
+        nodeValueDict[self.outputs[0].name] = self.node_value
+
+     # 输入点边面数据
+    def init(self, context):
+        self.inputs.new(NodeSocket_Verts.bl_idname,name="verts")
+        self.outputs.new(NodeSocket_String.bl_idname,name='object')
+
+    # 必须连接vert
+    def is_prepared(self):
+        if not self.inputs[0].is_linked:
+            return False
+        return self.link_num == 0
+
 
 
 classes = [
     Node_InputObject,
     Node_Object2BMesh,
     Node_MeshAppoint,
+    Node_PointRandomMove,
 
 
 

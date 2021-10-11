@@ -3,6 +3,18 @@ import time
 import bpy
 from .node_system import *
 
+
+color_dark = 0.39, 0.39, 0.39
+color_gray = 0.63, 0.63, 0.63
+color_blue = 0.39, 0.39, 0.78
+color_green = 0.39, 0.78, 0.39
+color_magenta = 0.78, 0.16, 0.78
+color_red = 0.78, 0.39, 0.39
+color_yellow = 0.78, 0.78, 0.16
+color_cyan = 0.16, 0.78, 0.78
+
+
+
 class NodeSocket_Int(PearlNodeSocket):
     bl_idname = 'NodeSocket_Int'
     bl_label = 'NodeSocket_Int'
