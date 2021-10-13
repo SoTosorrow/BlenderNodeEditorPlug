@@ -3,6 +3,10 @@ import bpy
 import bmesh
 import math
 import mathutils
+
+# 改进切割点提取值
+# 检查优化与错误
+# 改进分辨率与bound的错误等
 '''
 edgeTable=[
     0x0  , 0x109, 0x203, 0x30a, 0x406, 0x50f, 0x605, 0x70c,
@@ -299,7 +303,7 @@ triTable =[
 
 
 def sdf_func(p):
-    return p.length - 50
+    return p.length - 12
 #    return math.sqrt(p[0]*p[0]+p[1]*p[1]+p[2]*p[2])-50
     #return math.sin(p[0]) + math.sin(p[1]) + math.sin(p[2])
 
@@ -317,7 +321,7 @@ edgeIndex = [ [0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],
 # 每个体素大小1
 grid_size = 1
 # 64*64*64个体素
-res = [64,64,64]
+res = [32,32,32]
 # 输出的顶点和面序列
 verts = []
 faces = []
@@ -331,9 +335,9 @@ def list_add(a,b):
     return c
 
 # 遍历所有体块
-for x in range(res[0]):
-    for y in range(res[1]):
-        for z in range(res[2]):
+for x in range(-res[0]//2,res[0]//2,1):
+    for y in range(-res[1]//2,res[1]//2,1):
+        for z in range(-res[2]//2,res[2]//2,1):
             cube_inedx = 0
 
             # 求出每个体素的八个顶点的坐标

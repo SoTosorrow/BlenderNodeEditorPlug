@@ -20,3 +20,7 @@ https://www.cnblogs.com/shushen/p/5542131.html
 感谢，我现在思路是单个物体生成sdf图，然后建立个整个场景的八叉树来索引查找单个物体的sdf图
 
 https://www.jianshu.com/p/03300863a0c9
+
+实现的有问题
+res应该是分辨率
+现在其实是scale
