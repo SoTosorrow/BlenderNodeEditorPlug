@@ -1,6 +1,6 @@
 import bpy
-from .node_system import *
-from .node_socket import *
+from ..node_system import *
+from ..node_socket import *
 import mathutils
 
 '''
@@ -10,14 +10,14 @@ import mathutils
     NodeSocket_String,
 
 '''
-class Node_InputFloat(PearlNode):
-    bl_idname = "Node_InputFloat"
-    bl_label = "Float Input"
+class Node_OutputFloat(PearlNode):
+    bl_idname = "Node_OutputFloat"
+    bl_label = "Float Output"
 
     node_value : bpy.props.FloatProperty(name='Input', default=0.0)
 
     def init(self, context):
-        self.outputs.new(NodeSocket_Float.bl_idname, name="output")
+        self.inputs.new(NodeSocket_Float.bl_idname, name="input")
     
     def draw_buttons(self,context,layout):
         layout.prop(self, 'node_value', text='')  
@@ -26,20 +26,19 @@ class Node_InputFloat(PearlNode):
         print("process: ",self.name)
         if self.tree!=None:
             nodeValueDict = self.tree.tree_values[self.name]
-            nodeValueDict[self.outputs[0].name] = self.node_value
-        return True
+            self.node_value = nodeValueDict[self.inputs[0].name]
 
         
 
 
-class Node_InputVector(PearlNode):
-    bl_idname = "Node_InputVector"
-    bl_label = "Vector Input"
+class Node_OutputVector(PearlNode):
+    bl_idname = "Node_OutputVector"
+    bl_label = "Vector Output"
 
     node_value : bpy.props.FloatVectorProperty(name='Vector', default=(0, 0, 0))
 
     def init(self,context):
-        self.outputs.new(NodeSocket_Vector.bl_idname,name="output")
+        self.inputs.new(NodeSocket_Vector.bl_idname,name="input")
 
     def draw_buttons(self,context,layout):
         col = layout.column(align=1)
@@ -49,16 +48,16 @@ class Node_InputVector(PearlNode):
         print("process: ",self.name)
         nodeValueDict = self.tree.tree_values[self.name]
 
-        vec3 = mathutils.Vector(self.node_value)
-        nodeValueDict[self.outputs[0].name] = vec3
-        return True
+        vec3 = mathutils.Vector(nodeValueDict[self.inputs[0].name])
+        self.node_value = vec3
+
 
 
 
 
 classes = [
-    Node_InputFloat,
-    Node_InputVector,
+    Node_OutputFloat,
+    Node_OutputVector,
 
 ]
 

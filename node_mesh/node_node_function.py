@@ -1,6 +1,6 @@
 import bpy
-from .node_system import *
-from .node_socket import *
+from ..node_system import *
+from ..node_socket import *
 
 
 class Node_FunctionFloat(PearlNode):

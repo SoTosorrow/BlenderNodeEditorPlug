@@ -32,48 +32,79 @@ bl_info = {
 
 
 
-'''
+
 from . import node_system
 from . import node_category
 from . import node_socket
 from . import node_operator
 
-from . import node_node_input
-from . import node_node_function
-from . import node_node_output
-from . import node_node_convert
-from . import node_node_mesh
+from .node_mesh import node_node_input
+from .node_mesh import node_node_output
+from .node_mesh import node_node_function
+from .node_mesh import node_node_convert
+from .node_mesh import node_node_mesh
+
+# import node_mesh.node_node_input as node_node_input
+# import node_mesh.node_node_output as node_node_output
+# import node_mesh.node_node_function as node_node_function
+# import node_mesh.node_node_convert as node_node_convert
+# import node_mesh.node_node_mesh as node_node_mesh
+
+
+system = [
+    node_system,
+    node_category,
+    node_socket,
+    node_operator
+
+]
+file = [
+    node_node_input,
+    node_node_output,
+    node_node_function,
+    node_node_convert,
+    node_node_mesh
+]
+
 
 def register():
-    node_system.register()
-    node_socket.register()
-    node_category.register()
-    node_operator.register()
+    for c in system:
+        c.register()
+    for c in file:
+        c.register()
+    # node_system.register()
+    # node_socket.register()
+    # node_category.register()
+    # node_operator.register()
 
-    node_node_input.register()
-    node_node_function.register()
-    node_node_output.register()
-    node_node_convert.register()
-    node_node_mesh.register()
+    # node_node_input.register()
+    # node_node_function.register()
+    # node_node_output.register()
+    # node_node_convert.register()
+    # node_node_mesh.register()
     print("Pearl Node On")
 
 def unregister():
-    node_system.unregister()
-    node_socket.unregister()
-    node_category.unregister()
-    node_operator.unregister()
+    for c in system:
+        c.unregister()
+    for c in file:
+        c.unregister()
+    # node_system.unregister()
+    # node_socket.unregister()
+    # node_category.unregister()
+    # node_operator.unregister()
 
-    node_node_input.unregister()
-    node_node_function.unregister()
-    node_node_output.unregister()
-    node_node_convert.unregister()
-    node_node_mesh.unregister()
+    # node_node_input.unregister()
+    # node_node_function.unregister()
+    # node_node_output.unregister()
+    # node_node_convert.unregister()
+    # node_node_mesh.unregister()
     print("Pearl Node Off")
+
+
+
+
 '''
-
-
-
-
 
 # get folder name
 __folder_name__ = __name__
@@ -120,3 +151,4 @@ def unregister():
         if name in sys.modules and hasattr(sys.modules[name], 'unregister'):
             sys.modules[name].unregister()
     print("Pearl Node Off")
+'''

@@ -3,8 +3,8 @@ import bmesh
 import random
 import time
 import numpy as np
-from .node_system import *
-from .node_socket import *
+from ..node_system import *
+from ..node_socket import *
 
 '''
     NodeSocket_Int,

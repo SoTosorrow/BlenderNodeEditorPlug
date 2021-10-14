@@ -1,9 +1,9 @@
-#import numpy as np
-#import open3d as o3d
+import numpy as np
+import open3d as o3d
 
 # https://towardsdatascience.com/5-step-guide-to-generate-3d-meshes-from-point-clouds-with-python-36bad397d8ba
 
-'''
+
 input_path="testin/"
 output_path="testout/"
 dataname="sample_w_normals.xyz"
@@ -15,7 +15,7 @@ pcd.normals = o3d.utility.Vector3dVector(point_cloud[:,6:9])
 pcd.colors = o3d.utility.Vector3dVector(point_cloud[:,3:6]/255)
 
 # o3d.visualization.draw_geometries([pcd])
-'''
+
 
 
 # BPA
@@ -34,13 +34,13 @@ o3d.io.write_triangle_mesh(output_path+"bpa_mesh.ply", dec_mesh)
 '''
 
 # Poisson’ reconstruction
-'''
+
 poisson_mesh = o3d.geometry.TriangleMesh.create_from_point_cloud_poisson(pcd, depth=8, width=0, scale=1.1, linear_fit=False)[0]
 bbox = pcd.get_axis_aligned_bounding_box()
 p_mesh_crop = poisson_mesh.crop(bbox)
 
 o3d.io.write_triangle_mesh(output_path+"p_mesh_c.ply", p_mesh_crop)
-'''
+
 
 
 # open3d 可视化
