@@ -4,6 +4,9 @@ import bpy
 from .node_system import *
 
 
+# TODO 规范化socket和tree_values数据类型
+
+
 color_dark = 0.39, 0.39, 0.39
 color_gray = 0.63, 0.63, 0.63
 color_blue = 0.39, 0.39, 0.78

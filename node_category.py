@@ -36,6 +36,13 @@ node_categories = [
         nodeitems_utils.NodeItem('Node_PointRandomMove'),
 
     ]),
+    PearlNodeCategory("6","Point",items=[
+        nodeitems_utils.NodeItem('Node_PointRandomLocation'),
+        nodeitems_utils.NodeItem('Node_PointGenerateObj'),
+        
+
+
+    ]),
 ]
 
 

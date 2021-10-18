@@ -177,7 +177,8 @@ class Node_MeshAppoint(PearlNode):
         obj = bpy.data.objects[self.node_value]
         bm.to_mesh(obj.data)
         bm.free()
-        bpy.ops.object.select_all()
+        bpy.ops.object.select_all(action='SELECT')
+        bpy.ops.object.select_all(action='DESELECT')
         nodeValueDict[self.outputs[0].name] = self.node_value
 
      # 输入点边面数据

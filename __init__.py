@@ -43,6 +43,7 @@ from .node_mesh import node_node_output
 from .node_mesh import node_node_function
 from .node_mesh import node_node_convert
 from .node_mesh import node_node_mesh
+from .node_mesh import node_node_point
 
 # import node_mesh.node_node_input as node_node_input
 # import node_mesh.node_node_output as node_node_output
@@ -63,7 +64,8 @@ file = [
     node_node_output,
     node_node_function,
     node_node_convert,
-    node_node_mesh
+    node_node_mesh,
+    node_node_point
 ]
 
 

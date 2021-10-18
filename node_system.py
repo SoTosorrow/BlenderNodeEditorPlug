@@ -21,6 +21,8 @@ class PearlNodeTree(bpy.types.NodeTree):
     socket_values = {}
     # 储存所有节点所有的值
     tree_values = {}
+    # 需要清理的临时数据
+    tree_temp = []
 
 
     ''' 
@@ -83,6 +85,7 @@ class PearlNodeTree(bpy.types.NodeTree):
     
 
     def executeNodes(self):
+        self.tree_temp.clear()
         print("\n-------------- ",self.name)
         self.addExecuteNodes()
         self.initTreeValues()
